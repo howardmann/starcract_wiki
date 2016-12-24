@@ -14,7 +14,7 @@ module.exports = {
       host: "127.0.0.1",
       user: "howardmann",
       password: '',
-      database: "express_boilerplate"
+      database: "starcraft_wiki"
     }
   }
   ,

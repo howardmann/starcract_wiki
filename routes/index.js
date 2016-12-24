@@ -4,6 +4,8 @@ var router = express.Router();
 var users = require('./users.js');
 var posts = require('./posts.js');
 
+var races = require('./races.js');
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express-Boilerplate' });
@@ -28,10 +30,13 @@ router
   .delete('/posts/:id', posts.destroy);
 
 // USER NESTED ROUTES
-  router
-    .get('/users/:id/posts/new', posts.newUser)
-    .post('/users/:id/posts', posts.createUser);
+router
+  .get('/users/:id/posts/new', posts.newUser)
+  .post('/users/:id/posts', posts.createUser);
 
+// STARCRAFT WIKI
+router
+  .get('/races', races.index)
 
 
 
