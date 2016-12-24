@@ -38,8 +38,7 @@ describe('Races', function() {
         res.body[0].description.should.equal('The terrans are a young species with psionic potential. The terrans of the Koprulu sector descend from the survivors of a disastrous 23rd century colonization mission from Earth. Compared to the protoss and zerg, the terrans are highly factionalized and endure frequent wars amongst themselves in addition to the more recent conflicts with their alien neighbors. Nevertheless, terrans stand as one of the three dominant species of the galaxy.');
         res.body[0].should.have.property('planets');
         res.body[0].planets.should.be.a('array');
-        res.body[0].planets[0].should.have.property('name');
-        res.body[0].planets[0].name.should.equal('korhal');
+        res.body[0].planets[0].should.equal('korhal');
         done();
       });
   });
