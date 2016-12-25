@@ -5,6 +5,7 @@ var users = require('./users.js');
 var posts = require('./posts.js');
 
 var races = require('./races.js');
+var heroes = require('./heroes.js');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -34,7 +35,7 @@ router
   .get('/users/:id/posts/new', posts.newUser)
   .post('/users/:id/posts', posts.createUser);
 
-// STARCRAFT WIKI
+// STARCRAFT WIKI - RACES
 router
   .get('/races', races.index)
   .get('/races/:id', races.show)
@@ -42,6 +43,8 @@ router
   .put('/races/:id', races.update)
   .delete('/races/:id', races.destroy);
 
-
+// STARCRAFT WIKI - HEROES
+router
+  .get('/heroes', heroes.index)
 
 module.exports = router;
