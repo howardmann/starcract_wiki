@@ -10,8 +10,21 @@ chai.use(chaiHttp);
 
 describe('Races', function() {
 
-  // Before each test we rollback the migrations and run the seed file again
+  // Before and after each test we rollback the migrations and run the seed file again
   beforeEach(function(done) {
+    knex.migrate.rollback()
+    .then(function() {
+      knex.migrate.latest()
+      .then(function() {
+        return knex.seed.run()
+        .then(function() {
+          done();
+        });
+      });
+    });
+  });
+
+  afterEach(function(done) {
     knex.migrate.rollback()
     .then(function() {
       knex.migrate.latest()
