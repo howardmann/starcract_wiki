@@ -32,3 +32,12 @@ exports.create = function(req, res, next) {
       res.json(race);
     }, next)
 };
+
+exports.update = function(req, res, next) {
+  Race
+    .query()
+    .updateAndFetchById(req.params.id, req.body)
+    .then(function(race){
+      res.json(race);
+    }, next)
+};

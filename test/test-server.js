@@ -82,28 +82,21 @@ describe('Races', function() {
       });
   });
 
-  it('should update a SINGLE race on /races/:id PUT');
-  // it('should update a SINGLE race on /races/:id PUT', function(done){
-    // chai.request(app)
-    //   .put('/movies/1')
-    //   .send({
-    //     genre: 'Action'
-    //   })
-    //   .end(function(err, res){
-    //     res.should.have.status(200);
-    //     res.should.be.json;
-    //     res.body.should.be.a('object');
-    //     res.body.should.have.property('name');
-    //     res.body.name.should.equal('Gladiator');
-    //     res.body.should.have.property('director');
-    //     res.body.director.should.equal('Ridley Scott');
-    //     res.body.should.have.property('genre');
-    //     res.body.genre.should.equal('Action');
-    //     res.body.should.have.property('year');
-    //     res.body.year.should.equal(2000);
-    //     done();
-    //   });
-  // });
+  it('should update a SINGLE race on /races/:id PUT', function(done){
+    chai.request(app)
+      .put('/races/1')
+      .send({
+        name: 'human'
+      })
+      .end(function(err, res){
+        res.should.have.status(200);
+        res.should.be.json;
+        res.body.should.be.a('object');
+        res.body.should.have.property('name');
+        res.body.name.should.equal('human');
+        done();
+      });
+  });
 
   it('should delete a SINGLE race on /races/:id DELETE');
   // it('should delete a SINGLE race on /races/:id DELETE', function(done){
