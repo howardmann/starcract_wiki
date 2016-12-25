@@ -23,3 +23,12 @@ exports.show = function(req, res, next) {
       res.json(race);
     }, next)
 };
+
+exports.create = function(req, res, next) {
+  Race
+    .query()
+    .insertAndFetch(req.body)
+    .then(function(race){
+      res.json(race);
+    }, next)
+};

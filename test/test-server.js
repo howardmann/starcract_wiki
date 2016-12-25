@@ -63,31 +63,24 @@ describe('Races', function() {
       });
   });
 
-  it('should add a SINGLE movie on /races POST');
-  // it('should add a SINGLE movie on /races POST', function(done){
-    // chai.request(app)
-    //   .post('/movies')
-    //   .send({
-    //     name: 'The Avengers',
-    //     director: 'Joss Whedon',
-    //     genre: 'Action',
-    //     year: 2012
-    //   })
-    //   .end(function(err, res){
-    //     res.should.have.status(200);
-    //     res.should.be.json;
-    //     res.body.should.be.a('object');
-    //     res.body.should.have.property('name');
-    //     res.body.name.should.equal('The Avengers');
-    //     res.body.should.have.property('director');
-    //     res.body.director.should.equal('Joss Whedon');
-    //     res.body.should.have.property('genre');
-    //     res.body.genre.should.equal('Action');
-    //     res.body.should.have.property('year');
-    //     res.body.year.should.equal(2012);
-    //     done();
-    //   });
-  // });
+  it('should add a SINGLE movie on /races POST', function(done){
+    chai.request(app)
+      .post('/races')
+      .send({
+        name: 'Xel Naga',
+        description: 'An unknown and mysterious race'
+      })
+      .end(function(err, res){
+        res.should.have.status(200);
+        res.should.be.json;
+        res.body.should.be.a('object');
+        res.body.should.have.property('name');
+        res.body.name.should.equal('Xel Naga');
+        res.body.should.have.property('description');
+        res.body.description.should.equal('An unknown and mysterious race');
+        done();
+      });
+  });
 
   it('should update a SINGLE race on /races/:id PUT');
   // it('should update a SINGLE race on /races/:id PUT', function(done){

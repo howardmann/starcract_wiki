@@ -38,6 +38,7 @@ router
 router
   .get('/races', races.index)
   .get('/races/:id', races.show)
+  .post('/races', races.create)
 
 
 
