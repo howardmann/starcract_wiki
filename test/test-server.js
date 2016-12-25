@@ -8,34 +8,25 @@ var knex = require("knex")(config);
 
 chai.use(chaiHttp);
 
+// Function for before and after each test rollback migrations and run seed file again
+var reset = function(done){
+  knex.migrate.rollback()
+    .then(function(){
+      knex.migrate.latest()
+      .then(function(){
+        return knex.seed.run()
+        .then(function(){
+          done();
+        })
+      })
+    })
+};
+
 describe('Races', function() {
 
   // Before and after each test we rollback the migrations and run the seed file again
-  beforeEach(function(done) {
-    knex.migrate.rollback()
-    .then(function() {
-      knex.migrate.latest()
-      .then(function() {
-        return knex.seed.run()
-        .then(function() {
-          done();
-        });
-      });
-    });
-  });
-
-  afterEach(function(done) {
-    knex.migrate.rollback()
-    .then(function() {
-      knex.migrate.latest()
-      .then(function() {
-        return knex.seed.run()
-        .then(function() {
-          done();
-        });
-      });
-    });
-  });
+  beforeEach(reset);
+  afterEach(reset);
 
   it('should list ALL races on /races GET', function(done){
     chai.request(app)
