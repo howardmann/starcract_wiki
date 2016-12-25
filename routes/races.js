@@ -41,3 +41,16 @@ exports.update = function(req, res, next) {
       res.json(race);
     }, next)
 };
+
+exports.destroy = function(req, res, next) {
+  Race
+    .query()
+    .findById(req.params.id)
+    .then(function(race){
+      Race
+      .query()
+      .deleteById(req.params.id).then(function(){
+        res.json(race);
+      })
+    }, next);
+};

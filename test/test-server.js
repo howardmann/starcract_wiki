@@ -98,32 +98,25 @@ describe('Races', function() {
       });
   });
 
-  it('should delete a SINGLE race on /races/:id DELETE');
-  // it('should delete a SINGLE race on /races/:id DELETE', function(done){
-    // chai.request(app)
-    //   .delete('/movies/4')
-    //   .end(function(err, res) {
-    //     res.should.have.status(200);
-    //     res.should.be.json;
-    //     res.body.should.be.a('object');
-    //     res.body.should.have.property('name');
-    //     res.body.name.should.equal('Pulp Fiction');
-    //     res.body.should.have.property('director');
-    //     res.body.director.should.equal('Quentin Tarantino');
-    //     res.body.should.have.property('genre');
-    //     res.body.genre.should.equal('Noir');
-    //     res.body.should.have.property('year');
-    //     res.body.year.should.equal(1990);
-    //     chai.request(app)
-    //       .get('/movies')
-    //       .end(function(err, res){
-    //         res.should.have.status(200);
-    //         res.should.be.json;
-    //         res.body.should.be.a('array');
-    //         res.body.length.should.equal(3);
-    //         done();
-    //       });
-    //   });
-  // });
+  it('should delete a SINGLE race on /races/:id DELETE', function(done){
+    chai.request(app)
+      .delete('/races/3')
+      .end(function(err, res) {
+        res.should.have.status(200);
+        res.should.be.json;
+        res.body.should.be.a('object');
+        res.body.should.have.property('name');
+        res.body.name.should.equal('zerg');
+        chai.request(app)
+          .get('/races')
+          .end(function(err, res){
+            res.should.have.status(200);
+            res.should.be.json;
+            res.body.should.be.a('array');
+            res.body.length.should.equal(2);
+            done();
+          });
+      });
+  });
 
 });

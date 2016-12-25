@@ -40,6 +40,7 @@ router
   .get('/races/:id', races.show)
   .post('/races', races.create)
   .put('/races/:id', races.update)
+  .delete('/races/:id', races.destroy);
 
 
 
