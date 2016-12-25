@@ -37,6 +37,7 @@ router
 // STARCRAFT WIKI
 router
   .get('/races', races.index)
+  .get('/races/:id', races.show)
 
 
 

@@ -43,33 +43,25 @@ describe('Races', function() {
       });
   });
 
-  it('should list a SINGLE race on /race/:id GET');
-  // it('should list a SINGLE race on /race/:id GET', function(done){
-    // chai.request(app)
-    //   .get('/movies/2')
-    //   .end(function(err, res){
-    //     // For illustartion purposes different style using expect. Should and expect are both fine
-    //     expect(res).to.have.status(200);
-    //     expect(res).to.be.json;
-    //     expect(res.body).to.be.a('object');
-    //     expect(res.body).to.have.property('name');
-    //     expect(res.body.name).to.equal('Prestige');
-    //     expect(res.body).to.have.property('director');
-    //     expect(res.body.director).to.equal('Christopher Nolan');
-    //     expect(res.body).to.have.property('genre');
-    //     expect(res.body.genre).to.equal('Drama');
-    //     expect(res.body).to.have.property('year');
-    //     expect(res.body.year).to.equal(2013);
-    //     // Add associations for movie belongs to user
-    //     expect(res.body).to.have.property('user');
-    //     expect(res.body.user).to.be.a('object');
-    //     expect(res.body.user).to.have.property('name');
-    //     expect(res.body.user.name).to.equal('howie mann');
-    //     expect(res.body.user).to.have.property('email');
-    //     expect(res.body.user.email).to.equal('howie@email.com');
-    //     done();
-    //   });
-  // });
+  it('should list a SINGLE race on /race/:id GET', function(done){
+    chai.request(app)
+      .get('/races/2')
+      .end(function(err, res){
+        res.should.have.status(200);
+        res.should.be.json;
+        res.body.should.be.a('object');
+        res.body.should.have.property('name');
+        res.body.name.should.equal('protoss');
+        res.body.should.have.property('description');
+        res.body.description.should.equal("The protoss, a.k.a. the Firstborn, are a sapient humanoid race native to Aiur. Their advanced technology complements and enhances their psionic mastery. The main protoss cultural groups are the Khalai, who adhere to the communal Khala, and the Nerazim, who reject the Khala. In addition, another branch of the protoss separate from the Khala called the Tal'darim lives in various places in the galaxy. Protoss civilization was reunified when the Khalai and Nerazim, sundered since the Discord, were reunited after the devastation of Aiur by the zerg during the Great War.Alongside the zerg and terrans, the protoss stand as one of the three dominant species of the Milky Way. Protoss are not found outside the Koprulu sector.");
+        res.body.should.have.property('planets');
+        res.body.planets[0].should.have.property('name');
+        res.body.planets[0].name.should.equal('aiur');
+        res.body.planets[0].should.have.property('description');
+        res.body.planets[0].description.should.equal("Aiur is the protoss homeworld, located in a star system with a single yellow star and possessing a single moon not unlike Luna. It is at least the third of the system's terrestrial planets, if not further out. A great psionic matrix emanated from Aiur. Protoss structures and units, to a lesser extent, drew their energy from it. A nexus provided a link to this matrix, but pylons were needed to actually tap into the energy required to provide psionic energy to new colonies.Aiur possesses great, almost spiritual significance to all protoss.");
+        done();
+      });
+  });
 
   it('should add a SINGLE movie on /races POST');
   // it('should add a SINGLE movie on /races POST', function(done){
