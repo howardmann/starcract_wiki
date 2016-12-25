@@ -46,5 +46,6 @@ router
 // STARCRAFT WIKI - HEROES
 router
   .get('/heroes', heroes.index)
+  .get('/heroes/:id', heroes.show)
 
 module.exports = router;

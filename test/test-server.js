@@ -158,6 +158,28 @@ describe('Heroes', function() {
       });
   });
 
+  it('should list a SINGLE hero on /hero/:id GET', function(done){
+    chai.request(app)
+      .get('/heroes/2')
+      .end(function(err, res){
+        res.should.have.status(200);
+        res.should.be.json;
+        res.should.be.a('object');
+        res.body.should.have.property('name');
+        res.body.name.should.equal('Zeratul');
+        res.body.should.have.property('description');
+        res.body.should.have.property('health');
+        res.body.should.have.property('attack');
+        res.body.should.have.property('score');
+        res.body.should.have.property('race');
+        res.body.race.should.be.a('object');
+        res.body.race.should.have.property('name');
+        res.body.race.name.should.equal('protoss');
+        (res.body.attack + res.body.health).should.equal(res.body.score);
+        done();
+      });
+  });
+
   // it('should list a SINGLE race on /race/:id GET', function(done){
   //   chai.request(app)
   //     .get('/races/2')
