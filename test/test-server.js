@@ -209,22 +209,25 @@ describe('Heroes', function() {
         done();
       });
   });
-  //
-  // it('should update a SINGLE race on /races/:id PUT', function(done){
-  //   chai.request(app)
-  //     .put('/races/1')
-  //     .send({
-  //       name: 'human'
-  //     })
-  //     .end(function(err, res){
-  //       res.should.have.status(200);
-  //       res.should.be.json;
-  //       res.body.should.be.a('object');
-  //       res.body.should.have.property('name');
-  //       res.body.name.should.equal('human');
-  //       done();
-  //     });
-  // });
+
+  it('should update a SINGLE hero on /heroes/:id PUT', function(done){
+    chai.request(app)
+      .put('/heroes/2')
+      .send({
+        name: 'Zeratul The Boss'
+      })
+      .end(function(err, res){
+        res.should.have.status(200);
+        res.should.be.json;
+        res.body.should.be.a('object');
+        res.body.should.have.property('name');
+        res.body.name.should.equal('Zeratul The Boss');
+        res.body.should.have.property('race');
+        res.body.race.should.have.property('name');
+        res.body.race.name.should.equal('protoss');
+        done();
+      });
+  });
   //
   // it('should delete a SINGLE race on /races/:id DELETE', function(done){
   //   chai.request(app)

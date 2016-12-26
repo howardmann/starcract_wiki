@@ -28,3 +28,13 @@ exports.create = function(req, res, next) {
       res.json(hero);
     }, next);
 };
+
+exports.update = function(req, res, next) {
+  Hero
+    .query()
+    .updateAndFetchById(req.params.id, req.body)
+    .eager('race')
+    .then(function(hero){
+      res.json(hero);
+    }, next);
+};
