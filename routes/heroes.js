@@ -38,3 +38,17 @@ exports.update = function(req, res, next) {
       res.json(hero);
     }, next);
 };
+
+exports.destroy = function(req, res, next) {
+  Hero
+    .query()
+    .findById(req.params.id)
+    .then(function(hero){
+      Hero
+        .query()
+        .deleteById(req.params.id)
+        .then(function(){
+          res.json(hero);
+        });
+    }, next)
+};

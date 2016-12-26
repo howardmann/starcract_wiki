@@ -228,26 +228,26 @@ describe('Heroes', function() {
         done();
       });
   });
-  //
-  // it('should delete a SINGLE race on /races/:id DELETE', function(done){
-  //   chai.request(app)
-  //     .delete('/races/3')
-  //     .end(function(err, res) {
-  //       res.should.have.status(200);
-  //       res.should.be.json;
-  //       res.body.should.be.a('object');
-  //       res.body.should.have.property('name');
-  //       res.body.name.should.equal('zerg');
-  //       chai.request(app)
-  //         .get('/races')
-  //         .end(function(err, res){
-  //           res.should.have.status(200);
-  //           res.should.be.json;
-  //           res.body.should.be.a('array');
-  //           res.body.length.should.equal(2);
-  //           done();
-  //         });
-  //     });
-  // });
+
+  it('should delete a SINGLE hero on /heroes/:id DELETE', function(done){
+    chai.request(app)
+      .delete('/heroes/2')
+      .end(function(err, res) {
+        res.should.have.status(200);
+        res.should.be.json;
+        res.body.should.be.a('object');
+        res.body.should.have.property('name');
+        res.body.name.should.equal('Zeratul');
+        chai.request(app)
+          .get('/heroes')
+          .end(function(err, res){
+            res.should.have.status(200);
+            res.should.be.json;
+            res.body.should.be.a('array');
+            res.body.length.should.equal(2);
+            done();
+          });
+      });
+  });
 
 });

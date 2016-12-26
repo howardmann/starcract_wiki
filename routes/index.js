@@ -49,5 +49,6 @@ router
   .get('/heroes/:id', heroes.show)
   .post('/heroes', heroes.create)
   .put('/heroes/:id', heroes.update)
+  .delete('/heroes/:id', heroes.destroy);
 
 module.exports = router;
