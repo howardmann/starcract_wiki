@@ -180,44 +180,35 @@ describe('Heroes', function() {
       });
   });
 
-  // it('should list a SINGLE race on /race/:id GET', function(done){
-  //   chai.request(app)
-  //     .get('/races/2')
-  //     .end(function(err, res){
-  //       res.should.have.status(200);
-  //       res.should.be.json;
-  //       res.body.should.be.a('object');
-  //       res.body.should.have.property('name');
-  //       res.body.name.should.equal('protoss');
-  //       res.body.should.have.property('description');
-  //       res.body.description.should.equal("The protoss, a.k.a. the Firstborn, are a sapient humanoid race native to Aiur. Their advanced technology complements and enhances their psionic mastery. The main protoss cultural groups are the Khalai, who adhere to the communal Khala, and the Nerazim, who reject the Khala. In addition, another branch of the protoss separate from the Khala called the Tal'darim lives in various places in the galaxy. Protoss civilization was reunified when the Khalai and Nerazim, sundered since the Discord, were reunited after the devastation of Aiur by the zerg during the Great War.Alongside the zerg and terrans, the protoss stand as one of the three dominant species of the Milky Way. Protoss are not found outside the Koprulu sector.");
-  //       res.body.should.have.property('planets');
-  //       res.body.planets[0].should.have.property('name');
-  //       res.body.planets[0].name.should.equal('aiur');
-  //       res.body.planets[0].should.have.property('description');
-  //       res.body.planets[0].description.should.equal("Aiur is the protoss homeworld, located in a star system with a single yellow star and possessing a single moon not unlike Luna. It is at least the third of the system's terrestrial planets, if not further out. A great psionic matrix emanated from Aiur. Protoss structures and units, to a lesser extent, drew their energy from it. A nexus provided a link to this matrix, but pylons were needed to actually tap into the energy required to provide psionic energy to new colonies.Aiur possesses great, almost spiritual significance to all protoss.");
-  //       done();
-  //     });
-  // });
-  //
-  // it('should add a SINGLE movie on /races POST', function(done){
-  //   chai.request(app)
-  //     .post('/races')
-  //     .send({
-  //       name: 'Xel Naga',
-  //       description: 'An unknown and mysterious race'
-  //     })
-  //     .end(function(err, res){
-  //       res.should.have.status(200);
-  //       res.should.be.json;
-  //       res.body.should.be.a('object');
-  //       res.body.should.have.property('name');
-  //       res.body.name.should.equal('Xel Naga');
-  //       res.body.should.have.property('description');
-  //       res.body.description.should.equal('An unknown and mysterious race');
-  //       done();
-  //     });
-  // });
+  it('should add a SINGLE hero on /heroes POST', function(done){
+    chai.request(app)
+      .post('/heroes')
+      .send({
+        name: 'Overmind',
+        description: 'The old leader of the zerg',
+        health: 1000,
+        attack: 2000,
+        race_id: 3
+      })
+      .end(function(err, res){
+        res.should.have.status(200);
+        res.should.be.json;
+        res.body.should.be.a('object');
+        res.body.should.have.property('name');
+        res.body.name.should.equal('Overmind');
+        res.body.should.have.property('description');
+        res.body.description.should.equal('The old leader of the zerg');
+        res.body.should.have.property('health');
+        res.body.should.have.property('attack');
+        res.body.should.have.property('score');
+        res.body.should.have.property('race');
+        res.body.race.should.be.a('object');
+        res.body.race.should.have.property('name');
+        res.body.race.name.should.equal('zerg');
+        (res.body.attack + res.body.health).should.equal(res.body.score);
+        done();
+      });
+  });
   //
   // it('should update a SINGLE race on /races/:id PUT', function(done){
   //   chai.request(app)

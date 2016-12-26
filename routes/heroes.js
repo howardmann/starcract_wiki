@@ -18,3 +18,13 @@ exports.show = function(req, res, next) {
       res.json(hero);
     }, next);
 };
+
+exports.create = function(req, res, next) {
+  Hero
+    .query()
+    .insertAndFetch(req.body)
+    .eager('race')
+    .then(function(hero){
+      res.json(hero);
+    }, next);
+};

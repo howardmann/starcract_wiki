@@ -47,5 +47,6 @@ router
 router
   .get('/heroes', heroes.index)
   .get('/heroes/:id', heroes.show)
+  .post('/heroes', heroes.create)
 
 module.exports = router;
