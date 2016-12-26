@@ -2,11 +2,15 @@ var chai = require('chai');
 var chaiHttp = require('chai-http');
 var app = require('../app.js');
 var should = chai.should();
+var expect = chai.expect;
+// cheerio.js used for jQuery DOM testing. We load the res.text into cheerio and then can test
+var cheerio = require('cheerio');
 
 var config = require('../knexfile')[process.env.NODE_ENV || "development"];
 var knex = require("knex")(config);
 
 chai.use(chaiHttp);
+
 
 // Function for before and after each test rollback migrations and run seed file again
 var reset = function(done){
@@ -249,5 +253,122 @@ describe('Heroes', function() {
           });
       });
   });
+
+});
+
+describe('Planets', function() {
+  beforeEach(reset);
+  afterEach(reset);
+
+  it('should list ALL planets on /planets GET', function(done){
+    chai.request(app)
+      .get('/planets')
+      .end(function(err, res){
+        var $ = cheerio.load(res.text);
+        var $planets = $('#main .planet');
+        res.should.have.status(200);
+        res.should.be.html;
+        ($('#main h3').text()).should.equal('Planets Index page');
+        ($planets.length).should.equal(3);
+        ($planets.text()).should.include('Name:');
+        ($planets.text()).should.include('Description:');
+        ($planets.text()).should.include('Race:');
+        ($planets.eq(0).text()).should.include('korhal');
+
+        done();
+      });
+  });
+
+  // it('should list a SINGLE hero on /hero/:id GET', function(done){
+  //   chai.request(app)
+  //     .get('/heroes/2')
+  //     .end(function(err, res){
+  //       res.should.have.status(200);
+  //       res.should.be.json;
+  //       res.should.be.a('object');
+  //       res.body.should.have.property('name');
+  //       res.body.name.should.equal('Zeratul');
+  //       res.body.should.have.property('description');
+  //       res.body.should.have.property('health');
+  //       res.body.should.have.property('attack');
+  //       res.body.should.have.property('score');
+  //       res.body.should.have.property('race');
+  //       res.body.race.should.be.a('object');
+  //       res.body.race.should.have.property('name');
+  //       res.body.race.name.should.equal('protoss');
+  //       (res.body.attack + res.body.health).should.equal(res.body.score);
+  //       done();
+  //     });
+  // });
+  //
+  // it('should add a SINGLE hero on /heroes POST', function(done){
+  //   chai.request(app)
+  //     .post('/heroes')
+  //     .send({
+  //       name: 'Overmind',
+  //       description: 'The old leader of the zerg',
+  //       health: 1000,
+  //       attack: 2000,
+  //       race_id: 3
+  //     })
+  //     .end(function(err, res){
+  //       res.should.have.status(200);
+  //       res.should.be.json;
+  //       res.body.should.be.a('object');
+  //       res.body.should.have.property('name');
+  //       res.body.name.should.equal('Overmind');
+  //       res.body.should.have.property('description');
+  //       res.body.description.should.equal('The old leader of the zerg');
+  //       res.body.should.have.property('health');
+  //       res.body.should.have.property('attack');
+  //       res.body.should.have.property('score');
+  //       res.body.should.have.property('race');
+  //       res.body.race.should.be.a('object');
+  //       res.body.race.should.have.property('name');
+  //       res.body.race.name.should.equal('zerg');
+  //       (res.body.attack + res.body.health).should.equal(res.body.score);
+  //       done();
+  //     });
+  // });
+  //
+  // it('should update a SINGLE hero on /heroes/:id PUT', function(done){
+  //   chai.request(app)
+  //     .put('/heroes/2')
+  //     .send({
+  //       name: 'Zeratul The Boss'
+  //     })
+  //     .end(function(err, res){
+  //       res.should.have.status(200);
+  //       res.should.be.json;
+  //       res.body.should.be.a('object');
+  //       res.body.should.have.property('name');
+  //       res.body.name.should.equal('Zeratul The Boss');
+  //       res.body.should.have.property('race');
+  //       res.body.race.should.have.property('name');
+  //       res.body.race.name.should.equal('protoss');
+  //       done();
+  //     });
+  // });
+  //
+  // it('should delete a SINGLE hero on /heroes/:id DELETE', function(done){
+  //   chai.request(app)
+  //     .delete('/heroes/2')
+  //     .end(function(err, res) {
+  //       res.should.have.status(200);
+  //       res.should.be.json;
+  //       res.body.should.be.a('object');
+  //       res.body.should.have.property('name');
+  //       res.body.name.should.equal('Zeratul');
+  //       chai.request(app)
+  //         .get('/heroes')
+  //         .end(function(err, res){
+  //           res.should.have.status(200);
+  //           res.should.be.json;
+  //           res.body.should.be.a('array');
+  //           res.body.length.should.equal(2);
+  //           done();
+  //         });
+  //     });
+  // });
 
 });
