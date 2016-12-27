@@ -55,6 +55,7 @@ router
 // STARCRAFT WIKI - PLANETS STATIC HTML
 router
   .get('/planets', planets.index)
+  .get('/planets/:id', planets.show)
 
 
 module.exports = router;

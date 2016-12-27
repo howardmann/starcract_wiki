@@ -10,3 +10,15 @@ exports.index = function(req, res, next) {
       });
     }, next);
 };
+
+exports.show = function(req, res, next) {
+  Planet
+    .query()
+    .findById(req.params.id)
+    .eager('race')
+    .then(function(planet){
+      res.render('planets/show', {
+        planet: planet
+      });
+    }, next);
+};

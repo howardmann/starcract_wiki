@@ -274,32 +274,25 @@ describe('Planets', function() {
         ($planets.text()).should.include('Description:');
         ($planets.text()).should.include('Race:');
         ($planets.eq(0).text()).should.include('korhal');
-
+        ($('.planet-link').eq(1).attr('href')).should.equal('/planets/2');
         done();
       });
   });
 
-  // it('should list a SINGLE hero on /hero/:id GET', function(done){
-  //   chai.request(app)
-  //     .get('/heroes/2')
-  //     .end(function(err, res){
-  //       res.should.have.status(200);
-  //       res.should.be.json;
-  //       res.should.be.a('object');
-  //       res.body.should.have.property('name');
-  //       res.body.name.should.equal('Zeratul');
-  //       res.body.should.have.property('description');
-  //       res.body.should.have.property('health');
-  //       res.body.should.have.property('attack');
-  //       res.body.should.have.property('score');
-  //       res.body.should.have.property('race');
-  //       res.body.race.should.be.a('object');
-  //       res.body.race.should.have.property('name');
-  //       res.body.race.name.should.equal('protoss');
-  //       (res.body.attack + res.body.health).should.equal(res.body.score);
-  //       done();
-  //     });
-  // });
+  it('should list a SINGLE planet on /planets/:id GET', function(done){
+    chai.request(app)
+      .get('/planets/2')
+      .end(function(err, res){
+        var $ = cheerio.load(res.text);
+        var $planet = $('#main .planet-show');
+        res.should.have.status(200);
+        res.should.be.html;
+        ($planet.find('h3').text()).should.equal('Planet: aiur');
+        ($planet.text()).should.include('Description:');
+        ($planet.text()).should.include('Race: protoss');
+        done();
+      });
+  });
   //
   // it('should add a SINGLE hero on /heroes POST', function(done){
   //   chai.request(app)

@@ -3,7 +3,7 @@
 
 {{#each planets}}
   <div class="planet">
-    <p>Name: {{name}}</p>
+    <p>Name: <a class="planet-link" href="/planets/{{id}}">{{name}}</a></p>
     <p>Description: {{description}}</p>
     <p>Race: {{race.name}}</p>
   </div>
