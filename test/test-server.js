@@ -293,6 +293,21 @@ describe('Planets', function() {
         done();
       });
   });
+
+  it('should list a NEW planet view page on /planets/new GET', function(done){
+    chai.request(app)
+      .get('/planets/new')
+      .end(function(err, res){
+        var $ = cheerio.load(res.text);
+        var $new = $('#main .planet-new');
+        res.should.have.status(200);
+        res.should.be.html;
+        ($new.find('h3').text()).should.equal('New Planet');
+        done();
+      });
+  });
+
+
   //
   // it('should add a SINGLE hero on /heroes POST', function(done){
   //   chai.request(app)

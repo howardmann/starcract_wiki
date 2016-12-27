@@ -22,3 +22,7 @@ exports.show = function(req, res, next) {
       });
     }, next);
 };
+
+exports.new = function(req, res, next) {
+  res.render('planets/new');
+};
