@@ -290,6 +290,7 @@ describe('Planets', function() {
         ($planet.find('h3').text()).should.equal('Planet: aiur');
         ($planet.text()).should.include('Description:');
         ($planet.text()).should.include('Race: protoss');
+        ($planet.find('.edit').attr('href')).should.equal('/planets/2/edit');
         done();
       });
   });
@@ -340,25 +341,23 @@ describe('Planets', function() {
       });
   });
 
-  //
-  // it('should update a SINGLE hero on /heroes/:id PUT', function(done){
-  //   chai.request(app)
-  //     .put('/heroes/2')
-  //     .send({
-  //       name: 'Zeratul The Boss'
-  //     })
-  //     .end(function(err, res){
-  //       res.should.have.status(200);
-  //       res.should.be.json;
-  //       res.body.should.be.a('object');
-  //       res.body.should.have.property('name');
-  //       res.body.name.should.equal('Zeratul The Boss');
-  //       res.body.should.have.property('race');
-  //       res.body.race.should.have.property('name');
-  //       res.body.race.name.should.equal('protoss');
-  //       done();
-  //     });
-  // });
+  it('should update a SINGLE planet on /planets/:id PUT', function(done){
+    chai.request(app)
+      .put('/planets/1')
+      .send({
+        name: 'mar sara',
+        description: 'Mar Sara was catalogued by freelance terran prospectors and colonized by an expedition from Tarsonis several years later. Mar Sara formed the eighth of the thirteen core worlds of the Terran Confederacy. Although Mar Sara was always a backwater colony compared to its more prosperous sister planet, Chau Sara, its mining industry was seen as a key strategic asset.'
+      })
+      .end(function(err, res){
+        var $ = cheerio.load(res.text);
+        var $main = $('#main');
+        res.should.have.status(200);
+        res.should.be.html;
+        ($main.find('h3').text()).should.equal('Planet: mar sara');
+        ($main.text()).should.include('terran');
+        done();
+      });
+  });
   //
   // it('should delete a SINGLE hero on /heroes/:id DELETE', function(done){
   //   chai.request(app)

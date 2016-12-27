@@ -57,8 +57,19 @@ exports.edit = function(req, res, next) {
             var result = (race.id === planet.race.id) ? true : false;
             return _.extend({}, race, {isRace: result});
           });
-          
+
           res.render('planets/edit', {planet: planet, races: racesAdj});
         })
+    }, next);
+};
+
+exports.update = function(req, res, next) {
+  var id = req.params.id;
+  console.log(req.params.id);
+  Planet
+    .query()
+    .updateAndFetchById(id, req.body)
+    .then(function(planet){
+      res.redirect(`/planets/${id}`);
     }, next);
 };

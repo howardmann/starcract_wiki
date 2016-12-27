@@ -3,7 +3,7 @@
 <fieldset>
   <legend>Edit Planet Form</legend>
 
-  <form action="/planets/{{id}}" method="post">
+  <form action="/planets/{{planet.id}}" method="post">
     <input type="hidden" name="_method" value="PUT">
 
     <p>Name</p>
@@ -14,7 +14,7 @@
     <p>{{planet.race.name}}</p>
     <p>Pick race</p>
     <p>
-      <select name="topic_id">
+      <select name="race_id">
         {{#each races}}
           <option value="{{id}}" {{#if isRace}}selected="selected"{{/if}}>{{name}}</option>
         {{/each}}
@@ -26,4 +26,4 @@
   </form>
 </fieldset>
 
-<a href="/users">Back to users</a>
+<a href="/planets">Back to planets</a>
