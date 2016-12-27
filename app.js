@@ -7,6 +7,10 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+// Flash messages
+var session = require('express-session');
+var flash = require('connect-flash');
+
 // ==BP: SETUP KNEX AND OBJECTION DATABASE
 // Initialize knex.
 var config = require('./knexfile')[process.env.NODE_ENV || "development"];
@@ -33,6 +37,12 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+// Use express essions  and flash messages
+app.use(session({secret: "i love dogs", resave: false, saveUnitialized: false}));
+app.use(flash());
+app.use(session());
+
 
 // ===BP: ADD METHOD OVERRIDE TO ALLOW FORMS TO SUBMIT DELETE AND PUT REQUESTS
 app.use(methodOverride(function (req, res) {

@@ -8,7 +8,8 @@ exports.index = function(req, res, next) {
     .eager('race')
     .then(function(planets){
       res.render('planets/index', {
-        planets: planets
+        planets: planets,
+        message: req.flash('info')
       });
     }, next);
 };
@@ -83,6 +84,7 @@ exports.destroy = function(req, res, next) {
         .query()
         .deleteById(req.params.id)
         .then(function(){
+          req.flash('info', `Successfully deleted ${planet.name}`);
           res.redirect('/planets');
         });
     }, next)
