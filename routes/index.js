@@ -1,12 +1,12 @@
 var express = require('express');
 var router = express.Router();
 
-var users = require('./users.js');
-var posts = require('./posts.js');
-
-var races = require('./races.js');
-var heroes = require('./heroes.js');
-var planets = require('./planets.js');
+// Require controllers
+var users = require('../controllers/users.js');
+var posts = require('../controllers/posts.js');
+var races = require('../controllers/races.js');
+var heroes = require('../controllers/heroes.js');
+var planets = require('../controllers/planets.js');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -61,9 +61,5 @@ router
   .get('/planets/:id/edit', planets.edit)
   .put('/planets/:id', planets.update)
   .delete('/planets/:id', planets.destroy);
-
-
-
-
 
 module.exports = router;
