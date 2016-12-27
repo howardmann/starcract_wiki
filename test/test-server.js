@@ -294,7 +294,7 @@ describe('Planets', function() {
       });
   });
 
-  it('should list a NEW planet view page on /planets/new GET', function(done){
+  it('should display a NEW planet view page on /planets/new GET', function(done){
     chai.request(app)
       .get('/planets/new')
       .end(function(err, res){
@@ -304,7 +304,6 @@ describe('Planets', function() {
         res.should.be.html;
         ($new.find('h3').text()).should.equal('New Planet');
         done();
-        
       });
   });
 
@@ -324,20 +323,23 @@ describe('Planets', function() {
         ($main.text()).should.include('Tarsonis');
         ($main.find('.planet').length).should.equal(4);
         ($main.find('.planet').eq(3).text()).should.include('terran');
-        // // JSON response
-        // res.should.be.json;
-        // res.body.should.be.a('object');
-        // res.body.should.have.property('name');
-        // res.body.name.should.equal('Tarsonis');
-        // res.body.should.have.property('description');
-        // res.body.description.should.equal('A temperate planet with a core continent and 27 hour day, Tarsonis residents were occasionally afflicted by powerful solar flares.');
-        // res.body.should.have.property('race');
-        // res.body.race.should.be.a('object');
-        // res.body.race.should.have.property('name');
-        // res.body.race.name.should.equal('terran');
         done();
       });
   });
+
+  it('should display a EDIT planet view page on /planets/:id/edit GET', function(done){
+    chai.request(app)
+      .get('/planets/1/edit')
+      .end(function(err, res){
+        var $ = cheerio.load(res.text);
+        var $main = $('#main');
+        res.should.have.status(200);
+        res.should.be.html;
+        ($main.find('h3').text()).should.equal('Edit Planet: korhal');
+        done();
+      });
+  });
+
   //
   // it('should update a SINGLE hero on /heroes/:id PUT', function(done){
   //   chai.request(app)

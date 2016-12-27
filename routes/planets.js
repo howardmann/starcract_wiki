@@ -1,5 +1,6 @@
 var Planet = require('../models/Planet');
 var Race = require('../models/Race');
+var _ = require('underscore');
 
 exports.index = function(req, res, next) {
   Planet
@@ -28,7 +29,7 @@ exports.new = function(req, res, next) {
   Race
     .query()
     .then(function(races){
-      res.render('planets/new', {races: races});      
+      res.render('planets/new', {races: races});
     }, next);
 };
 
@@ -39,5 +40,25 @@ exports.create = function(req, res, next) {
     .eager('race')
     .then(function(race){
       res.redirect('/planets');
+    }, next);
+};
+
+exports.edit = function(req, res, next) {
+  Planet
+    .query()
+    .eager('race')
+    .findById(req.params.id)
+    .then(function(planet){
+      Race
+        .query()
+        .then(function(races){
+          // Add new property to races to check if race belongs to planet
+          var racesAdj = _.map(races, function(race){
+            var result = (race.id === planet.race.id) ? true : false;
+            return _.extend({}, race, {isRace: result});
+          });
+          
+          res.render('planets/edit', {planet: planet, races: racesAdj});
+        })
     }, next);
 };
