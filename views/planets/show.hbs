@@ -3,5 +3,9 @@
   <p>Description: {{planet.description}}</p>
   <p>Race: {{planet.race.name}}</p>
   <a href="/planets/{{planet.id}}/edit" class="edit">Edit</a>
+  <form method="POST" action="/planets/{{planet.id}}">
+    <input type="hidden" name="_method" value="DELETE">
+    <button type="submit">Delete</button>
+  </form>
   <p><a href="/planets">Back to planets</a></p>
 </div>

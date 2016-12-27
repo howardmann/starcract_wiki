@@ -73,3 +73,17 @@ exports.update = function(req, res, next) {
       res.redirect(`/planets/${id}`);
     }, next);
 };
+
+exports.destroy = function(req, res, next) {
+  Planet
+    .query()
+    .findById(req.params.id)
+    .then(function(planet){
+      Planet
+        .query()
+        .deleteById(req.params.id)
+        .then(function(){
+          res.redirect('/planets');
+        });
+    }, next)
+};

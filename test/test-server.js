@@ -358,26 +358,18 @@ describe('Planets', function() {
         done();
       });
   });
-  //
-  // it('should delete a SINGLE hero on /heroes/:id DELETE', function(done){
-  //   chai.request(app)
-  //     .delete('/heroes/2')
-  //     .end(function(err, res) {
-  //       res.should.have.status(200);
-  //       res.should.be.json;
-  //       res.body.should.be.a('object');
-  //       res.body.should.have.property('name');
-  //       res.body.name.should.equal('Zeratul');
-  //       chai.request(app)
-  //         .get('/heroes')
-  //         .end(function(err, res){
-  //           res.should.have.status(200);
-  //           res.should.be.json;
-  //           res.body.should.be.a('array');
-  //           res.body.length.should.equal(2);
-  //           done();
-  //         });
-  //     });
-  // });
+
+  it('should delete a SINGLE planet on /planets/:id DELETE', function(done){
+    chai.request(app)
+      .delete('/planets/1')
+      .end(function(err, res) {
+        var $ = cheerio.load(res.text);
+        var $main = $('#main');
+        res.should.have.status(200);
+        res.should.be.html;
+        ($main.find('.planet').length).should.equal(2);
+        done();
+      });
+  });
 
 });
