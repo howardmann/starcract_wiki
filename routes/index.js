@@ -57,6 +57,7 @@ router
   .get('/planets', planets.index)
   .get('/planets/new', planets.new)
   .get('/planets/:id', planets.show)
+  .post('/planets', planets.create)
 
 
 

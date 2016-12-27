@@ -1,4 +1,5 @@
 var Planet = require('../models/Planet');
+var Race = require('../models/Race');
 
 exports.index = function(req, res, next) {
   Planet
@@ -24,5 +25,19 @@ exports.show = function(req, res, next) {
 };
 
 exports.new = function(req, res, next) {
-  res.render('planets/new');
+  Race
+    .query()
+    .then(function(races){
+      res.render('planets/new', {races: races});      
+    }, next);
+};
+
+exports.create = function(req, res, next) {
+  Planet
+    .query()
+    .insertAndFetch(req.body)
+    .eager('race')
+    .then(function(race){
+      res.redirect('/planets');
+    }, next);
 };

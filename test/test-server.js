@@ -304,40 +304,40 @@ describe('Planets', function() {
         res.should.be.html;
         ($new.find('h3').text()).should.equal('New Planet');
         done();
+        
       });
   });
 
-
-  //
-  // it('should add a SINGLE hero on /heroes POST', function(done){
-  //   chai.request(app)
-  //     .post('/heroes')
-  //     .send({
-  //       name: 'Overmind',
-  //       description: 'The old leader of the zerg',
-  //       health: 1000,
-  //       attack: 2000,
-  //       race_id: 3
-  //     })
-  //     .end(function(err, res){
-  //       res.should.have.status(200);
-  //       res.should.be.json;
-  //       res.body.should.be.a('object');
-  //       res.body.should.have.property('name');
-  //       res.body.name.should.equal('Overmind');
-  //       res.body.should.have.property('description');
-  //       res.body.description.should.equal('The old leader of the zerg');
-  //       res.body.should.have.property('health');
-  //       res.body.should.have.property('attack');
-  //       res.body.should.have.property('score');
-  //       res.body.should.have.property('race');
-  //       res.body.race.should.be.a('object');
-  //       res.body.race.should.have.property('name');
-  //       res.body.race.name.should.equal('zerg');
-  //       (res.body.attack + res.body.health).should.equal(res.body.score);
-  //       done();
-  //     });
-  // });
+  it('should add a SINGLE planet on /planets POST', function(done){
+    chai.request(app)
+      .post('/planets')
+      .send({
+        name: 'Tarsonis',
+        description: 'A temperate planet with a core continent and 27 hour day, Tarsonis residents were occasionally afflicted by powerful solar flares.',
+        race_id: 1
+      })
+      .end(function(err, res){
+        var $ = cheerio.load(res.text);
+        var $main = $('#main');
+        res.should.have.status(200);
+        res.should.be.html;
+        ($main.text()).should.include('Tarsonis');
+        ($main.find('.planet').length).should.equal(4);
+        ($main.find('.planet').eq(3).text()).should.include('terran');
+        // // JSON response
+        // res.should.be.json;
+        // res.body.should.be.a('object');
+        // res.body.should.have.property('name');
+        // res.body.name.should.equal('Tarsonis');
+        // res.body.should.have.property('description');
+        // res.body.description.should.equal('A temperate planet with a core continent and 27 hour day, Tarsonis residents were occasionally afflicted by powerful solar flares.');
+        // res.body.should.have.property('race');
+        // res.body.race.should.be.a('object');
+        // res.body.race.should.have.property('name');
+        // res.body.race.name.should.equal('terran');
+        done();
+      });
+  });
   //
   // it('should update a SINGLE hero on /heroes/:id PUT', function(done){
   //   chai.request(app)

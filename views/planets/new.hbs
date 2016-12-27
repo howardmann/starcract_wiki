@@ -5,12 +5,21 @@
     <legend>New Planet Form</legend>
     <form action="/planets" method="post">
       <p>Name</p>
-      <input type="name" name="name" required=true>
+      <p><input type="name" name="name" required=true></p>
 
       <p>Description</p>
-      <input type="text" name="description" required=true>
+      <p><input type="text" name="description" required=true></p>
 
-      <input type="submit">
+      <p>Pick race</p>
+      <p>
+        <select name="topic_id">
+          {{#each races}}
+            <option value="{{id}}">{{name}}</option>
+          {{/each}}
+        </select>
+      </p>
+
+      <p><input type="submit"></p>
     </form>
   </fieldset>
 
